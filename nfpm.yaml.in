@@ -1,0 +1,35 @@
+# This is an example nfpm configuration file.
+# Make sure to check the documentation at https://nfpm.goreleaser.com
+#
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://nfpm.goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+name: "carbonapi"
+arch: "amd64"
+platform: "linux"
+version: "@PKG_VERSION@"
+release: "@PKG_RELEASE@"
+section: "default"
+priority: "extra"
+provides:
+  - carbonapi
+depends:
+  - libcairo2
+recommends: []
+suggests: []
+conflicts: []
+maintainer: "Hiroaki Nakamura <hnakamur@gmail.com>"
+description: |
+  Implementation of graphite API (graphite-web) in golang
+vendor: ""
+homepage: "https://github.com/go-graphite/carbonapi"
+license: "BSD-2-Clause"
+contents:
+  - src: ./dest/usr/bin/carbonapi
+    dst: /usr/bin/carbonapi
+  - src: ./dest/usr/share/carbonapi/carbonapi.example.yaml
+    dst: /usr/share/carbonapi/carbonapi.example.yaml
+  - src: ./carbonapi.service
+    dst: /lib/systemd/system/carbonapi.service

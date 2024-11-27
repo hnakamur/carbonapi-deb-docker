@@ -1,0 +1,3 @@
+[submodule "carbonapi"]
+	path = carbonapi
+	url = https://github.com/go-graphite/carbonapi.git
