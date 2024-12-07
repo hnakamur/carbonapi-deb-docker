@@ -10,7 +10,7 @@ LOGUNLIMITED_BUILDER=logunlimited
 
 # Ubuntu 24.04
 deb-ubuntu2404: build-ubuntu2404
-	docker run --rm -v ./carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04:/dist ats-ubuntu2404 bash -c \
+	docker run --rm -v ./carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04:/dist carbonapi-ubuntu2404 bash -c \
 	"cp /src/carbonapi*${PKG_VERSION}* /dist/"
 	sudo tar zcf carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04.tar.gz ./carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04/
 
@@ -25,16 +25,16 @@ build-ubuntu2404: buildkit-logunlimited
 		--build-arg PKG_VERSION=${PKG_VERSION} \
 		--build-arg PKG_RELEASE=${PKG_REL_PREFIX}ubuntu24.04 \
 		--build-arg GO_VERSION=${GO_VERSION} \
-		-t ats-ubuntu2404 . \
+		-t carbonapi-ubuntu2404 . \
 	) 2>&1 | sudo tee carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04/carbonapi_${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04.build.log
 	sudo xz --force carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04/carbonapi_${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu24.04.build.log
 
 run-ubuntu2404:
-	docker run --rm -it ats-ubuntu2404 bash
+	docker run --rm -it carbonapi-ubuntu2404 bash
 
 # Ubuntu 22.04
 deb-ubuntu2204: build-ubuntu2204
-	docker run --rm -v ./carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04:/dist ats-ubuntu2204 bash -c \
+	docker run --rm -v ./carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04:/dist carbonapi-ubuntu2204 bash -c \
 	"cp /src/carbonapi*${PKG_VERSION}* /dist/"
 	sudo tar zcf carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04.tar.gz ./carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04/
 
@@ -49,12 +49,12 @@ build-ubuntu2204: buildkit-logunlimited
 		--build-arg PKG_VERSION=${PKG_VERSION} \
 		--build-arg PKG_RELEASE=${PKG_REL_PREFIX}ubuntu22.04 \
 		--build-arg GO_VERSION=${GO_VERSION} \
-		-t ats-ubuntu2204 . \
+		-t carbonapi-ubuntu2204 . \
 	) 2>&1 | sudo tee carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04/carbonapi_${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04.build.log
 	sudo xz --force carbonapi-${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04/carbonapi_${PKG_VERSION}-${PKG_REL_PREFIX}ubuntu22.04.build.log
 
 run-ubuntu2204:
-	docker run --rm -it ats-ubuntu2204 bash
+	docker run --rm -it carbonapi-ubuntu2204 bash
 
 buildkit-logunlimited:
 	if ! docker buildx inspect logunlimited 2>/dev/null; then \
